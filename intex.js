@@ -19,25 +19,27 @@ function type(value, type, mes) {
 }
 
 function typeInstanceof(value, type, mes) {
-  let tmp = Object
-  if (value instanceof Array) tmp = Array
-  if (value instanceof type && [] instanceof tmp)
+  let condition = (!(value instanceof Array) && value instanceof type)
+  if(type === Array)
+  condition = (value instanceof Array && value instanceof type)
+  if(condition)
     return {
       type: type,
       value: value,
-      tmp: Object,
       mes: mes,
       set set(value) {
-        if (value instanceof Array) this.tmp = Array
-        if (value instanceof type && [] instanceof this.tmp)
+        let condition = (!(value instanceof Array) && value instanceof this.type)
+        if(type === Array)
+        condition = (value instanceof Array && value instanceof this.type)
+        if(condition)
           this.value = value
-        else return console.error(Error(`The type value ${this.value} is not a ${this.mes}`))
+        else return console.error(Error(`The type value ${value} is not a ${this.mes}`))
       },
       get get() {
         return this.value
       }
     }
-  else return console.error(Error(`The type value ${this.value} is not a ${mes}`))
+  else return console.error(Error(`The type value ${value} is not a ${mes}`))
 }
 
 exports.int = function(value) {
