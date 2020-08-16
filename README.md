@@ -7,13 +7,15 @@ The little simple module that describe how to work with a strong type of data in
 *[UA]*
 Невеликий простий модуль, який описує, як працювати зі строгими типами даних у JS. Але це не кє типи в повному розумінні. Це правила для невеликої команди розробників та малого проекту.
 
-##List types: int, string, boolean, array, object.
+## List types: int, string, boolean, array, object.
 
 below example:
 
 Each method have *setter* and *getter*
 
+```
 const {int, string, boolean, array, object} = require('sampletype')
+
 let va = array([])
 let vb = object({})
 let str = string('g')
@@ -24,3 +26,4 @@ console.log(va.get)
 
 vb.set = {test: 1}
 console.log(vb.get)
+```
