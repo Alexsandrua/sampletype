@@ -37,7 +37,11 @@ function typeInstanceof(value, typeName, shortTypeName) {
         } else return console.error(Error(`The type value ${value} is not a ${typeName}`))
       },
       get [shortTypeName]() {
-        return this.value
+        if (Array.isArray(value) && typeName === 'Array') {
+          return this.value
+        } else if(this.value instanceof Object && this.value !== null && typeName === 'Object') {
+          return this.value
+        } else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
       }
     }
   else return console.error(Error(`The type value ${value} is not a ${typeName}`))
