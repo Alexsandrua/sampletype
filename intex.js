@@ -1,63 +1,65 @@
 'use strict'
 //Sample type mode.
 
-function type(value, type, mes) {
-  if (typeof value === typeof type)
+function typeTypeof(value, typeName, shortTypeName) {
+  if (typeof value === typeName)
     return {
       value: value,
-      mes: mes,
-      set set(value) {
-        if (typeof value === typeof type)
+      set [shortTypeName](value) {
+        if (typeof value === typeName)
           this.value = value
-        else return console.error(Error(`The type value ${this.value} is not a ${this.mes}`))
+        else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
       },
-      get get() {
+      get [shortTypeName]() {
+        if (typeof this.value === typeName)
+          return this.value
+        else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
+      }
+    }
+  else return console.error(Error(`The type value ${value} is not a ${typeName}`))
+}
+
+function typeInstanceof(value, typeName, shortTypeName) {
+  let condition
+  if (Array.isArray(value)) {
+    condition = 'Array'
+  } else if(value instanceof Object && value !== null && typeName === 'Object') {
+    condition = 'Object'
+  }
+  if (condition === typeName)
+    return {
+      value: value,
+      set [shortTypeName](value) {
+        if (Array.isArray(value) && typeName === 'Array') {
+          this.value = value;
+        } else if(value instanceof Object && value !== null && typeName === 'Object') {
+          this.value = value;
+        } else return console.error(Error(`The type value ${value} is not a ${typeName}`))
+      },
+      get [shortTypeName]() {
         return this.value
       }
     }
-  else return console.error(Error(`The type value ${this.value} is not a ${mes}`))
+  else return console.error(Error(`The type value ${value} is not a ${typeName}`))
 }
 
-function typeInstanceof(value, type, mes) {
-  let condition = (!(value instanceof Array) && value instanceof type)
-  if(type === Array)
-  condition = (value instanceof Array && value instanceof type)
-  if(condition)
-    return {
-      type: type,
-      value: value,
-      mes: mes,
-      set set(value) {
-        let condition = (!(value instanceof Array) && value instanceof this.type)
-        if(type === Array)
-        condition = (value instanceof Array && value instanceof this.type)
-        if(condition)
-          this.value = value
-        else return console.error(Error(`The type value ${value} is not a ${this.mes}`))
-      },
-      get get() {
-        return this.value
-      }
-    }
-  else return console.error(Error(`The type value ${value} is not a ${mes}`))
-}
 
-exports.int = function(value) {
-  return type(value, 0, 'int')
+exports.number = function(value) {
+  return typeTypeof(value, 'number', 'numb')
 }
 
 exports.string = function(value) {
-  return type(value, 's', 'String')
+  return typeTypeof(value, 'string', 'str')
 }
 
 exports.boolean = function(value) {
-  return type(value, true, 'boolean')
+  return typeTypeof(value, 'boolean', 'bool')
 }
 
 exports.array = function(value) {
-  return typeInstanceof(value, Array, 'Array')
+  return typeInstanceof(value, 'Array', 'arr')
 }
 
 exports.object = function(value) {
-  return typeInstanceof(value, Object, 'Object')
+  return typeInstanceof(value, 'Object', 'obj')
 }

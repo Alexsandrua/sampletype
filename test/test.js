@@ -1,11 +1,12 @@
-const {int, string, boolean, array, object} = require('./../')
+const { string, number, boolean, array, object } = require('./../')
 let va = array([])
 let vb = object({})
-let str = string('g')
-va.set = [1, 2, 3, 4, 5, 6, 7]
-//let i_val = int('2').get
-va.get.push(int(111).get) //push number value
-console.log(va.get)
 
-vb.set = {test: 1}
-console.log(vb.get)
+va.arr = [1, 2, 3, 4, 5, 6, 7]
+let n = number('15')
+va.array.push(n.numb) //push number value
+let name = string('geen')
+console.log(name.str)
+name.str = '11'
+name.value = 10
+console.log(name.str)
