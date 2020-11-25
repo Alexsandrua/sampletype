@@ -8,15 +8,15 @@ function typeTypeof(value, typeName, shortTypeName) {
       set [shortTypeName](value) {
         if (typeof value === typeName)
           this.value = value
-        else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
+        else throw Error(`The type value ${this.value} is not a ${typeName}`)
       },
       get [shortTypeName]() {
         if (typeof this.value === typeName)
           return this.value
-        else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
+        else throw new Error(`The type value ${this.value} is not a ${typeName}`)
       }
     }
-  else return console.error(Error(`The type value ${value} is not a ${typeName}`))
+  else throw new Error(`The type value ${value} is not a ${typeName}`)
 }
 
 function typeInstanceof(value, typeName, shortTypeName) {
@@ -34,17 +34,17 @@ function typeInstanceof(value, typeName, shortTypeName) {
           this.value = value;
         } else if(value instanceof Object && value !== null && typeName === 'Object') {
           this.value = value;
-        } else return console.error(Error(`The type value ${value} is not a ${typeName}`))
+        } else throw new Error(`The type value ${value} is not a ${typeName}`)
       },
       get [shortTypeName]() {
         if (Array.isArray(value) && typeName === 'Array') {
           return this.value
         } else if(this.value instanceof Object && this.value !== null && typeName === 'Object') {
           return this.value
-        } else return console.error(Error(`The type value ${this.value} is not a ${typeName}`))
+        } else throw new Error(`The type value ${this.value} is not a ${typeName}`)
       }
     }
-  else return console.error(Error(`The type value ${value} is not a ${typeName}`))
+  else throw new Error(`The type value ${value} is not a ${typeName}`)
 }
 
 
