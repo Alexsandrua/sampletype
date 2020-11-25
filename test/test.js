@@ -35,3 +35,27 @@ test('test number type', () => {
   n.value = '15';
   expect(() => n.numb).toThrow(Error);
 });
+
+test('test array type', () => {
+  let test = array([1,2,3]);
+  expect(test.arr instanceof Array).toBe(true);
+  expect(test.arr).toEqual([1,2,3]);
+  test.arr = [1,2,3,4]
+  expect(test.arr).toEqual([1,2,3,4]);
+  expect(() => array({a:'a'})).toThrow(Error);
+  expect(() => test.arr = '[1,2,3,4]').toThrow(Error);
+  test.value = '[1,2,3,4]';
+  expect(() => test.arr).toThrow(Error);
+});
+
+test('test object type', () => {
+  let test = object({a: 'a'});
+  expect(test.obj instanceof Object).toBe(true);
+  expect(test.obj).toEqual({a: 'a'});
+  test.obj = {a: 'a', b: 'b'};
+  expect(test.obj).toEqual({a: 'a', b: 'b'});
+  expect(() => object([1,2,3,4])).toThrow(Error);
+  expect(() => test.obj = [1]).toThrow(Error);
+  test.value = [1,2,3,4];
+  expect(() => test.obj).toThrow(Error);
+});

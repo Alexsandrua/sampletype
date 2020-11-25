@@ -32,14 +32,14 @@ function typeInstanceof(value, typeName, shortTypeName) {
       set [shortTypeName](value) {
         if (Array.isArray(value) && typeName === 'Array') {
           this.value = value;
-        } else if(value instanceof Object && value !== null && typeName === 'Object') {
+        } else if(value instanceof Object && value !== null && typeName === 'Object' && !Array.isArray(value)) {
           this.value = value;
         } else throw new Error(`The type value ${value} is not a ${typeName}`)
       },
       get [shortTypeName]() {
-        if (Array.isArray(value) && typeName === 'Array') {
+        if (Array.isArray(this.value) && typeName === 'Array') {
           return this.value
-        } else if(this.value instanceof Object && this.value !== null && typeName === 'Object') {
+        } else if(this.value instanceof Object && this.value !== null && typeName === 'Object' && !Array.isArray(this.value)) {
           return this.value
         } else throw new Error(`The type value ${this.value} is not a ${typeName}`)
       }
